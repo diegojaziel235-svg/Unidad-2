@@ -22,6 +22,33 @@ public class PanelPrincipal extends javax.swing.JFrame {
         configurarValidaciones();
         configurarEventos();
         configurarPlaceholders();
+
+        // ---- Configuración de los CampoFormulario de Vehículos ----
+        campoFormulario1.setEtiqueta("Marca");
+        campoFormulario1.setObligatorio(true);
+        campoFormulario1.setTipoValidacion(CampoFormulario.TipoValidacion.SOLO_LETRAS);
+        campoFormulario1.setPlaceholder("Ej: Toyota");
+
+        campoFormulario2.setEtiqueta("Modelo");
+        campoFormulario2.setObligatorio(true);
+        campoFormulario2.setTipoValidacion(CampoFormulario.TipoValidacion.LIBRE);
+        campoFormulario2.setPlaceholder("Ej: Corolla");
+
+        campoFormulario3.setEtiqueta("Color");
+        campoFormulario3.setObligatorio(true);
+        campoFormulario3.setTipoValidacion(CampoFormulario.TipoValidacion.SOLO_LETRAS);
+        campoFormulario3.setPlaceholder("Ej: Rojo");
+
+        campoFormulario4.setEtiqueta("Tipo");
+        campoFormulario4.setObligatorio(true);
+        campoFormulario4.setTipoValidacion(CampoFormulario.TipoValidacion.LIBRE);
+        campoFormulario4.setPlaceholder("Ej: Sedán");
+
+        ((javax.swing.table.DefaultTableModel) jTable1.getModel()).setRowCount(0);
+        modeloTabla = (javax.swing.table.DefaultTableModel) tabla1.getModel();
+        configurarEstadoInicial();
+        // ... resto del constructor sigue igual
+
         btnGuardarS.addActionListener(e -> controladorServicio.guardar(this));
         btnActualizarS.addActionListener(e -> controladorServicio.actualizar(this));
         btnEliminarS.addActionListener(e -> controladorServicio.eliminar(this));
@@ -44,18 +71,18 @@ public class PanelPrincipal extends javax.swing.JFrame {
 
         jButton2.addActionListener(e -> {
             controladorOrden.registrarVehiculo(
-                    jTextField2, // Marca
-                    jTextField3, // Modelo
-                    jTextField4, // Color
-                    jTextField5, // Tipo
-                    jTextArea1, // Observaciones
-                    tablaV // Tabla donde se mostrará
+                    campoFormulario1, // Marca
+                    campoFormulario2, // Modelo
+                    campoFormulario3, // Color
+                    campoFormulario4, // Tipo
+                    jTextArea1,
+                    tablaV
             );
         });
 
         jButton3.addActionListener(e -> {
             controladorOrden.limpiarCamposVehiculo(
-                    jTextField2, jTextField3, jTextField4, jTextField5, jTextArea1
+                    campoFormulario1, campoFormulario2, campoFormulario3, campoFormulario4, jTextArea1
             );
         });
 
@@ -430,17 +457,13 @@ public class PanelPrincipal extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         buscador = new javax.swing.JTextField();
         buscar = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        campoFormulario1 = new proyectotopicos.CampoFormulario();
+        campoFormulario2 = new proyectotopicos.CampoFormulario();
+        campoFormulario3 = new proyectotopicos.CampoFormulario();
+        campoFormulario4 = new proyectotopicos.CampoFormulario();
         jPanel2 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
@@ -484,6 +507,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
         btnGuardarS = new javax.swing.JButton();
         btnActualizarS = new javax.swing.JButton();
         btnEliminarS = new javax.swing.JButton();
+        tarjetaServicio1 = new proyectotopicos.TarjetaServicio();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         cliente = new javax.swing.JTextField();
@@ -512,7 +536,6 @@ public class PanelPrincipal extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         indicadorEstado = new Componentes.IndicadorEstadoVehiculo();
         jButton4 = new javax.swing.JButton();
-        tarjetaServicio1 = new proyectotopicos.TarjetaServicio();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -567,28 +590,20 @@ public class PanelPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setText("Marca");
-
-        jTextField2.setBackground(new java.awt.Color(204, 204, 255));
-
-        jLabel13.setText("Modelo");
-
-        jTextField3.setBackground(new java.awt.Color(204, 204, 255));
-
-        jTextField4.setBackground(new java.awt.Color(204, 204, 255));
-
-        jLabel14.setText("Color");
-
-        jLabel15.setText("Tipo");
-
-        jTextField5.setBackground(new java.awt.Color(204, 204, 255));
-
         jLabel16.setText("Observaciones");
 
         jTextArea1.setBackground(new java.awt.Color(204, 204, 255));
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane3.setViewportView(jTextArea1);
+
+        campoFormulario1.setEtiqueta("Marca\n");
+
+        campoFormulario2.setEtiqueta("Modelo");
+
+        campoFormulario3.setEtiqueta("Color");
+
+        campoFormulario4.setEtiqueta("Tipo");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -607,25 +622,24 @@ public class PanelPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField2)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                                .addComponent(jButton3))
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5))
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addComponent(jButton3)
                         .addGap(24, 24, 24))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(19, 19, 19))))
+                        .addGap(19, 19, 19))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(campoFormulario3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoFormulario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoFormulario2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoFormulario4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(371, 371, 371)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -634,40 +648,34 @@ public class PanelPrincipal extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel11)
-                .addGap(32, 32, 32)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(buscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscar))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel11)
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(buscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buscar))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(campoFormulario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoFormulario2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoFormulario3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
+                        .addComponent(campoFormulario4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
-                            .addComponent(jButton3)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton3))))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
 
@@ -1445,37 +1453,6 @@ public class PanelPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-
-        String texto = buscador.getText().trim().toLowerCase();
-        if (texto.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingresa un nombre o marca a buscar");
-            return;
-        }
-        javax.swing.table.DefaultTableModel model
-                = (javax.swing.table.DefaultTableModel) tablaV.getModel();
-
-        boolean encontrado = false;
-        for (int i = 0; i < model.getRowCount(); i++) {
-
-            String marca = model.getValueAt(i, 1).toString().toLowerCase();
-            String modelo = model.getValueAt(i, 2).toString().toLowerCase();
-
-            if (marca.contains(texto) || modelo.contains(texto)) {
-                tablaV.setRowSelectionInterval(i, i);
-                tablaV.scrollRectToVisible(tablaV.getCellRect(i, 0, true));
-                encontrado = true;
-                break;
-            }
-        }
-
-        if (!encontrado) {
-            JOptionPane.showMessageDialog(this, "Vehículo no encontrado");
-        }
-
-        buscador.setText("");
-    }//GEN-LAST:event_buscarActionPerformed
-
     private void tipoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tipoPagoActionPerformed
@@ -1542,31 +1519,6 @@ public class PanelPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarSActionPerformed
 
-    private void buscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseEntered
-        buscar.setBackground(new Color(255, 102, 0));
-    }//GEN-LAST:event_buscarMouseEntered
-
-    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
-        jButton2.setBackground(new Color(0, 204, 0));
-    }//GEN-LAST:event_jButton2MouseEntered
-
-    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
-        jButton2.setBackground(new Color(102, 255, 102));
-    }//GEN-LAST:event_jButton2MouseExited
-// no se jaja
-    private void buscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseExited
-        buscar.setBackground(new Color(255, 255, 0));
-    }//GEN-LAST:event_buscarMouseExited
-
-    private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
-        jButton3.setBackground(new Color(51, 204, 255));
-    }//GEN-LAST:event_jButton3MouseEntered
-
-    private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
-        jButton3.setBackground(new Color(51, 153, 255));
-        // hola 
-    }//GEN-LAST:event_jButton3MouseExited
-
     private void txtObservacionesServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtObservacionesServicioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtObservacionesServicioActionPerformed
@@ -1599,7 +1551,62 @@ public class PanelPrincipal extends javax.swing.JFrame {
         controladorServicio.cargarDatos(this);
     }//GEN-LAST:event_tablaSMouseClicked
 
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
 
+        String texto = buscador.getText().trim().toLowerCase();
+        if (texto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingresa un nombre o marca a buscar");
+            return;
+        }
+        javax.swing.table.DefaultTableModel model
+                = (javax.swing.table.DefaultTableModel) tablaV.getModel();
+
+        boolean encontrado = false;
+        for (int i = 0; i < model.getRowCount(); i++) {
+
+            String marca = model.getValueAt(i, 1).toString().toLowerCase();
+            String modelo = model.getValueAt(i, 2).toString().toLowerCase();
+
+            if (marca.contains(texto) || modelo.contains(texto)) {
+                tablaV.setRowSelectionInterval(i, i);
+                tablaV.scrollRectToVisible(tablaV.getCellRect(i, 0, true));
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            JOptionPane.showMessageDialog(this, "Vehículo no encontrado");
+        }
+
+        buscador.setText("");
+    }//GEN-LAST:event_buscarActionPerformed
+
+// no se jaja
+    private void buscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseExited
+        buscar.setBackground(new Color(255, 255, 0));
+    }//GEN-LAST:event_buscarMouseExited
+
+    private void buscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseEntered
+        buscar.setBackground(new Color(255, 102, 0));
+    }//GEN-LAST:event_buscarMouseEntered
+
+    private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
+        jButton3.setBackground(new Color(51, 153, 255));
+        // hola
+    }//GEN-LAST:event_jButton3MouseExited
+
+    private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
+        jButton3.setBackground(new Color(51, 204, 255));
+    }//GEN-LAST:event_jButton3MouseEntered
+
+    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
+        jButton2.setBackground(new Color(102, 255, 102));
+    }//GEN-LAST:event_jButton2MouseExited
+
+    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
+        jButton2.setBackground(new Color(0, 204, 0));
+    }//GEN-LAST:event_jButton2MouseEntered
 
     /**
      * @param args the command line arguments
@@ -1642,6 +1649,10 @@ public class PanelPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JTextField buscador;
     private javax.swing.JButton buscar;
+    private proyectotopicos.CampoFormulario campoFormulario1;
+    private proyectotopicos.CampoFormulario campoFormulario2;
+    private proyectotopicos.CampoFormulario campoFormulario3;
+    private proyectotopicos.CampoFormulario campoFormulario4;
     public javax.swing.JTextField cliente;
     public javax.swing.JButton eliminar;
     public Componentes.IndicadorEstadoVehiculo indicadorEstado;
@@ -1653,10 +1664,6 @@ public class PanelPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1696,10 +1703,6 @@ public class PanelPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblCantidad;
     public javax.swing.JTextField observaciones;

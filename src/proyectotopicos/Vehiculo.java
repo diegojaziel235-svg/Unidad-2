@@ -53,37 +53,6 @@ public class Vehiculo {
                "', color='" + color + "', tipo='" + tipo + "', observaciones='" + observaciones + "'}";
     }  
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
     
 }

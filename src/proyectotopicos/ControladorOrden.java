@@ -434,20 +434,51 @@ public class ControladorOrden {
         }
     }
 
-    public void registrarVehiculo(JTextField txtMarca, JTextField txtModelo, JTextField txtColor, JTextField txtTipo, JTextArea txtObservaciones, JTable tabla) {
-        try {
-            // Obtener datos de los campos
-            String marca = txtMarca.getText().trim();
-            String modelo = txtModelo.getText().trim();
-            String color = txtColor.getText().trim();
-            String tipo = txtTipo.getText().trim();
-            String observaciones = txtObservaciones.getText().trim();
+    /**
+     * Valida una cantidad variable de componentes CampoFormulario de un solo
+     * jalón. Llama a validarCampo() en CADA uno (sin cortocircuito) para que
+     * todos los campos inválidos muestren su mensaje de error a la vez, en
+     * vez de detenerse en el primero que falle.
+     *
+     * @param campos los CampoFormulario a validar (tantos como se necesiten)
+     * @return true solo si TODOS los campos son válidos
+     */
+    public boolean validarTodos(CampoFormulario... campos) {
+        boolean todosValidos = true;
+        for (CampoFormulario campo : campos) {
+            boolean valido = campo.validarCampo();
+            todosValidos = todosValidos && valido;
+        }
+        return todosValidos;
+    }
 
-            if (marca.isEmpty() || modelo.isEmpty() || color.isEmpty() || tipo.isEmpty()) {
+    /**
+     * Registra un nuevo vehículo a partir de los datos capturados en los
+     * componentes CampoFormulario (Marca, Modelo, Color, Tipo). El campo de
+     * Observaciones se mantiene como JTextArea porque CampoFormulario no
+     * soporta texto multilínea.
+     */
+    public void registrarVehiculo(CampoFormulario campoMarca, CampoFormulario campoModelo,
+            CampoFormulario campoColor, CampoFormulario campoTipo,
+            JTextArea txtObservaciones, JTable tabla) {
+        try {
+            // Validación integrada: revisa los 4 campos de un jalón.
+            // Si alguno es obligatorio y está vacío, se pinta de rojo con
+            // su mensaje de error y no se continúa con el registro.
+            if (!validarTodos(campoMarca, campoModelo, campoColor, campoTipo)) {
                 JOptionPane.showMessageDialog(null,
-                        "Por favor llena todos los campos obligatorios (Marca, Modelo, Color, Tipo)", "Error de validación", JOptionPane.WARNING_MESSAGE);
+                        "Por favor llena todos los campos obligatorios (Marca, Modelo, Color, Tipo)",
+                        "Error de validación", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+
+            // Obtener datos de los campos
+            String marca = campoMarca.getTexto().trim();
+            String modelo = campoModelo.getTexto().trim();
+            String color = campoColor.getTexto().trim();
+            String tipo = campoTipo.getTexto().trim();
+            String observaciones = txtObservaciones.getText().trim();
+
             int nuevoId = 1;
             for (Vehiculo v : listaVehiculos) {
                 if (v.getIdAuto() >= nuevoId) {
@@ -457,7 +488,7 @@ public class ControladorOrden {
 
             Vehiculo nuevoVehiculo = new Vehiculo(nuevoId, marca, modelo, color, tipo, observaciones, "En proceso");
             listaVehiculos.add(nuevoVehiculo);
-            limpiarCamposVehiculo(txtMarca, txtModelo, txtColor, txtTipo, txtObservaciones);
+            limpiarCamposVehiculo(campoMarca, campoModelo, campoColor, campoTipo, txtObservaciones);
             cargarVehiculos(tabla);
 
             JOptionPane.showMessageDialog(null,
@@ -468,13 +499,18 @@ public class ControladorOrden {
         }
     }
 
-    public void limpiarCamposVehiculo(JTextField txtMarca, JTextField txtModelo,
-            JTextField txtColor, JTextField txtTipo,
+    /**
+     * Limpia los campos de registro de vehículo (Marca, Modelo, Color, Tipo)
+     * usando el método limpiar() del componente CampoFormulario, más el
+     * área de Observaciones.
+     */
+    public void limpiarCamposVehiculo(CampoFormulario campoMarca, CampoFormulario campoModelo,
+            CampoFormulario campoColor, CampoFormulario campoTipo,
             JTextArea txtObservaciones) {
-        txtMarca.setText("");
-        txtModelo.setText("");
-        txtColor.setText("");
-        txtTipo.setText("");
+        campoMarca.limpiar();
+        campoModelo.limpiar();
+        campoColor.limpiar();
+        campoTipo.limpiar();
         txtObservaciones.setText("");
     }
 
