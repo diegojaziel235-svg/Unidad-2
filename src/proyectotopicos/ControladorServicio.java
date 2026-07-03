@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 public class ControladorServicio {
 
     ArrayList<Servicio> listaServicios = new ArrayList<>();
-
+    
     // Regex: precio con hasta 2 decimales
     private static final Pattern PPRECIO = Pattern.compile("^[0-9]+(\\.[0-9]{1,2})?$");
     // Regex: duración solo números enteros positivos
@@ -160,16 +160,30 @@ public class ControladorServicio {
     }
 
     // ── CARGAR FILA AL HACER CLIC EN TABLA ──────────────────────────────────
-    public void cargarDatos(PanelPrincipal panel) {
+public void cargarDatos(PanelPrincipal panel) {
         int fila = panel.tablaS.getSelectedRow();
         if (fila == -1) return;
+        if (fila == -1) {
+            return; 
+        }
 
         DefaultTableModel modelo = (DefaultTableModel) panel.tablaS.getModel();
+        
+        String nombre = modelo.getValueAt(fila, 1).toString();
+        double precio = Double.parseDouble(modelo.getValueAt(fila, 2).toString());
+        int duracion = Integer.parseInt(modelo.getValueAt(fila, 3).toString());
+
+        // Llena las cajas de texto existentes
         panel.txtIdServicio.setText(modelo.getValueAt(fila, 0).toString());
-        panel.txtNombreServicio.setText(modelo.getValueAt(fila, 1).toString());
-        panel.txtPrecioServicio.setText(modelo.getValueAt(fila, 2).toString());
-        panel.txtDuracionServicio.setText(modelo.getValueAt(fila, 3).toString());
+        panel.txtNombreServicio.setText(nombre);
+        panel.txtPrecioServicio.setText(String.valueOf(precio));
+        panel.txtDuracionServicio.setText(String.valueOf(duracion));
         panel.txtObservacionesServicio.setText(modelo.getValueAt(fila, 4).toString());
+
+        // AQUÍ CONECTAMOS TU COMPONENTE JAVABEAN PERSONALIZADO
+        panel.tarjetaServicio1.setNombreServicio(nombre);
+        panel.tarjetaServicio1.setPrecioServicio(precio);
+        panel.tarjetaServicio1.setDuracionServicio(duracion);
     }
 
     // ── CARGAR TABLA AL INICIAR ──────────────────────────────────────────────

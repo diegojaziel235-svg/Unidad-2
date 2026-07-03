@@ -512,6 +512,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         indicadorEstado = new Componentes.IndicadorEstadoVehiculo();
         jButton4 = new javax.swing.JButton();
+        tarjetaServicio1 = new proyectotopicos.TarjetaServicio();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1003,6 +1004,11 @@ public class PanelPrincipal extends javax.swing.JFrame {
         });
 
         tablac.setBackground(new java.awt.Color(153, 153, 255));
+        tablac.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablacMouseClicked(evt);
+            }
+        });
 
         tablaS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1015,6 +1021,11 @@ public class PanelPrincipal extends javax.swing.JFrame {
                 "ID", "Nombre", "Precio", "Duracion", "Observaciones"
             }
         ));
+        tablaS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaSMouseClicked(evt);
+            }
+        });
         tablac.setViewportView(tablaS);
 
         btnGuardarS.setText("GUARDAR");
@@ -1045,8 +1056,6 @@ public class PanelPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1056,7 +1065,6 @@ public class PanelPrincipal extends javax.swing.JFrame {
                             .addComponent(txtPrecioServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addComponent(tablac, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtIdServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtObservacionesServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1066,19 +1074,32 @@ public class PanelPrincipal extends javax.swing.JFrame {
                         .addGap(48, 48, 48)
                         .addComponent(btnActualizarS)
                         .addGap(42, 42, 42)
-                        .addComponent(btnEliminarS)))
+                        .addComponent(btnEliminarS))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tarjetaServicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtIdServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tarjetaServicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(txtNombreServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1554,6 +1575,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
 
+
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
 
         String estadoSeleccionado = (String) jComboBox1.getSelectedItem();
@@ -1567,6 +1589,17 @@ public class PanelPrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tablacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablacMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablacMouseClicked
+
+    private void tablaSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSMouseClicked
+        // TODO add your handling code here:
+        controladorServicio.cargarDatos(this);
+    }//GEN-LAST:event_tablaSMouseClicked
+
+
 
     /**
      * @param args the command line arguments
@@ -1674,6 +1707,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
     public javax.swing.JTable tablaS;
     private javax.swing.JTable tablaV;
     public javax.swing.JScrollPane tablac;
+    public proyectotopicos.TarjetaServicio tarjetaServicio1;
     public javax.swing.JComboBox<String> tipoPago;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtBuscar;
